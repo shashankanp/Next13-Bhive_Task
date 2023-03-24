@@ -8,13 +8,13 @@ const inputSchema = new Schema({
     type: String,
     unique: true,
   },
-  // phone: {
-  //   type: Number,
-  //   unique: true,
-  // },
-  // opportunity: {
-  //   type: String,
-  // },
+  phone: {
+    type: String,
+    unique: true,
+  },
+  opportunity: {
+    type: String,
+  },
 });
 
 const Input = models.Input || model("Input", inputSchema);

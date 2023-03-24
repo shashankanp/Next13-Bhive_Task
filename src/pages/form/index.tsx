@@ -40,6 +40,18 @@ export default function Home() {
     // Submit Form
     onSubmit: async (values) => {
       console.log(values);
+      axios
+        .post("/api/person/add", {
+          name: values.name,
+          email: values.email,
+          phone: values.phone,
+          opportunity: values.opportunity,
+        })
+        .then((response) => {
+          console.log("Success:", response);
+          return response.data;
+        })
+        .catch((err) => console.log("Error:", err));
       router.push("/success");
     },
   });
