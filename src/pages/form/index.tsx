@@ -184,8 +184,8 @@ export default function Home() {
                 onChange={(e) =>
                   formik.setFieldValue("photo", e.currentTarget.files[0])
                 }
-              />  
-            </div>*/}
+              />
+            </div> */}
 
             {/* Terms of Service */}
             <div className="pb-4">
