@@ -1,27 +1,16 @@
-"use client";
-
-import React, { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
-import Confetti from "react-confetti";
 import Link from "next/link";
+import Confetti from "../confetti.json";
+import Lottie from "lottie-react";
 
 export default function Success() {
-  const searchParams = useSearchParams();
-  const [pieces, setPieces] = useState(200);
-
-  const stopConfetti = () => {
-    setTimeout(() => {
-      setPieces(0);
-    }, 3000);
-  };
-
-  useEffect(() => {
-    stopConfetti();
-  }, []);
-
   return (
     <main className="h-screen flex items-center justify-center">
       <div className="bg-white rounded-lg w-3/4 text-gray-700 p-16 text-center">
+        {/* <Lottie
+          animationData={Confetti}
+          loop={false}
+          style={{ left: 0, right: 0, width: "100%", position: "absolute" }}
+        /> */}
         <h1 className="text-3xl pb-4 font-medium">
           Thank you for submitting your data!✨
         </h1>
@@ -32,8 +21,14 @@ export default function Success() {
           </Link>{" "}
           to see your info
         </p>
+        <p className="text-2xl pt-4 font-medium">
+          You can click{" "}
+          <Link href={"./form"} className="underline">
+            here
+          </Link>{" "}
+          to fill out another form{" "}
+        </p>
       </div>
-      <Confetti gravity={0.2} numberOfPieces={pieces} />
     </main>
   );
 }

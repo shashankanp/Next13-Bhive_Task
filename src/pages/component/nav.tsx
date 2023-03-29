@@ -7,44 +7,26 @@ import { auth } from "../../../utils/firebase";
 import dynamic from "next/dynamic";
 import Logo from "../../../public/bhive_logo.png";
 import Image from "next/image";
-import { BsFillMoonStarsFill } from "react-icons/bs";
 
-function Nav(props: any) {
+function Nav() {
   const [user, loading] = useAuthState(auth);
 
   return (
-    <nav className="flex justify-between items-center py-0 ">
-      <Image alt="logo" src={Logo} className="w-10 h-12" />
-      {!user && (
-        <div className="flex justify-between">
-          <div className="cursor-pointer text-2xl my-auto mr-10 dark:text-white">
-            <BsFillMoonStarsFill
-              onClick={() => {
-                props.handleCLick(!props.dark);
-                console.log(!props.dark);
-              }}
-            />
-          </div>
+    <nav className="flex justify-between items-center py-0">
+      <Link href="/">
+        <Image alt="logo" src={Logo} className="w-10 h-12" />
+      </Link>
+      <ul>
+        {!user && (
           <Link
             className="bg-teal-500 rounded-lg py-2 px-4 font-medium text-lg ml-8 text-white"
             href="/auth/login"
           >
             Join Now!
           </Link>
-        </div>
-      )}
-      {user && (
-        <div className="flex justify-between">
-          <div className="cursor-pointer text-2xl my-auto mr-10 dark:text-white">
-            <BsFillMoonStarsFill
-              onClick={() => {
-                props.handleCLick(!props.dark);
-                console.log(!props.dark);
-              }}
-            />
-          </div>
-
-          <div className="block">
+        )}
+        {user && (
+          <div>
             <Link href={"/dashboard"}>
               <img
                 src={`${user.photoURL}`}
@@ -55,8 +37,8 @@ function Nav(props: any) {
             </Link>
             <h2>{user.displayName}</h2>
           </div>
-        </div>
-      )}
+        )}
+      </ul>
     </nav>
   );
 }

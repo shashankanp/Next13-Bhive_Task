@@ -19,7 +19,7 @@ export default function Login() {
     try {
       const result = await signInWithPopup(auth, googleProvider);
       // console.log(result.user);
-      route.push("/form");
+      route.push("/dashboard");
     } catch (error) {
       console.log(error);
     }
@@ -27,8 +27,7 @@ export default function Login() {
 
   useEffect(() => {
     if (user) {
-      <h1 className="mx-10 my-10 text-4xl">You are already logged in...</h1>;
-      route.push("/form");
+      route.push("/dashboard");
     } else {
       console.log("Login");
     }
