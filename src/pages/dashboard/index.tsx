@@ -62,7 +62,7 @@ export default function Dashboard({ inputs }: any) {
             Here are the details that you have provided:
           </h2>
           {relInputs.map((input: any) => (
-            <div className="text-2xl mt-5" key={input._id}>
+            <div className="text-2xl mt-5 border-red-500" key={input._id}>
               <p className="my-2">
                 <span className="font-medium">Name</span>: {input.name}
               </p>
