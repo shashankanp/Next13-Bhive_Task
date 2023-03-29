@@ -2,7 +2,7 @@ import Head from "next/head";
 
 export default function Home() {
   return (
-    <>
+    <div>
       <Head>
         <title>BHive Task</title>
         <meta name="description" content="Task for BHive :)" />
@@ -11,10 +11,9 @@ export default function Home() {
       </Head>
       <main>
         <h2 className="text-2xl mt-10">
-          
           Join our amazing family of investors today!
         </h2>
       </main>
-    </>
+    </div>
   );
 }
