@@ -15,6 +15,15 @@ const inputSchema = new Schema({
   opportunity: {
     type: String,
   },
+  firebase_name: {
+    type: String,
+  },
+  firebase_email: {
+    type: String,
+  },
+  firebase_uid: {
+    type: String,
+  },
 });
 
 const Input = models.Input || model("Input", inputSchema);

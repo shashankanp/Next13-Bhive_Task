@@ -5,13 +5,15 @@ import Link from "next/link";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../../utils/firebase";
 import dynamic from "next/dynamic";
+import Logo from "../../../public/bhive_logo.png";
+import Image from "next/image";
 
 function Nav() {
   const [user, loading] = useAuthState(auth);
 
   return (
     <nav className="flex justify-between items-center py-0">
-      <Link href={"/"}>Logo</Link>
+      <Image alt="logo" src={Logo} className="w-10 h-12" />
       <ul>
         {!user && (
           <Link

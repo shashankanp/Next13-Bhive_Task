@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Confetti from "react-confetti";
-import { number } from "yup";
+import Link from "next/link";
 
 export default function Success() {
   const searchParams = useSearchParams();
@@ -26,7 +26,11 @@ export default function Success() {
           Thank you for submitting your data!✨
         </h1>
         <p className="text-2xl pt-4 font-medium">
-          Check out your dashboard to see your info
+          Check out your{" "}
+          <Link href={"./dashboard"} className="underline">
+            dashboard
+          </Link>{" "}
+          to see your info
         </p>
       </div>
       <Confetti gravity={0.2} numberOfPieces={pieces} />
