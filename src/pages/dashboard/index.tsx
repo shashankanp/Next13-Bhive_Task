@@ -34,6 +34,13 @@ export default function Dashboard({ inputs }: any) {
   const route = useRouter();
   if (loading) return <h1 className="text-3xl">Loading...</h1>;
   if (!user) route.push("/auth/login");
+
+  // Filter out only the data that the current user has submitted
+  function checkValid(inp: any) {
+    return inp.firebase_email == user?.email;
+  }
+  const relInputs = inputs.filter(checkValid);
+
   if (user)
     return (
       <div>
@@ -54,7 +61,7 @@ export default function Dashboard({ inputs }: any) {
           <h2 className="text-3xl mt-10">
             Here are the details that you have provided:
           </h2>
-          {inputs.map((input: any) => (
+          {relInputs.map((input: any) => (
             <div className="text-2xl mt-5" key={input._id}>
               <p className="my-2">
                 <span className="font-medium">Name</span>: {input.name}
