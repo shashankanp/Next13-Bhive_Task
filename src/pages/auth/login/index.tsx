@@ -8,6 +8,7 @@ import { auth } from "../../../../utils/firebase";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
+import axios from "axios";
 
 export default function Login() {
   const [user, loading] = useAuthState(auth);
@@ -15,10 +16,12 @@ export default function Login() {
   // Sign in with Google
   const route = useRouter();
   const googleProvider = new GoogleAuthProvider();
+  console.log(user?.displayName, user?.email, user?.uid);
   const GoogleLogin = async () => {
     try {
-      const result = await signInWithPopup(auth, googleProvider);
+      const result = await signInWithPopup(auth, googleProvider).then();
       // console.log(result.user);
+      if (loading) return <h1 className="text-3xl">Loading...</h1>;
       route.push("/dashboard");
     } catch (error) {
       console.log(error);
@@ -27,6 +30,17 @@ export default function Login() {
 
   useEffect(() => {
     if (user) {
+      axios
+        .post("/api/user/add", {
+          firebase_name: user?.displayName,
+          firebase_mail: user?.email,
+          firebase_uid: user?.uid,
+        })
+        .then((response) => {
+          console.log("Firebase User Success:", response);
+          return response.data;
+        })
+        .catch((err) => console.log("Firebase User Error:", err));
       route.push("/dashboard");
     } else {
       console.log("Login");

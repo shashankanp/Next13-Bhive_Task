@@ -41,22 +41,21 @@ export default function Home() {
 
     // Submit Form
     onSubmit: async (values) => {
-      console.log(values);
+      // console.log(values);
+      console.log(user?.uid);
       axios
-        .post("/api/person/add", {
+        .post("/api/form/add", {
+          firebase_uid: user?.uid,
           name: values.name,
           email: values.email,
           phone: values.phone,
           opportunity: values.opportunity,
-          firebase_name: user?.displayName,
-          firebase_email: user?.email,
-          firebase_uid: user?.uid,
         })
         .then((response) => {
-          console.log("Success:", response);
+          console.log("Input Success:", response);
           return response.data;
         })
-        .catch((err) => console.log("Error:", err));
+        .catch((err) => console.log("Input Error:", err));
       router.push("/success");
     },
   });

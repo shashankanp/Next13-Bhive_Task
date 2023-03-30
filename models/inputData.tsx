@@ -1,6 +1,11 @@
-import { Schema, model, models } from "mongoose";
+import { Schema, model, models, SchemaTypes } from "mongoose";
+import User from "./firebaseUser";
 
 const inputSchema = new Schema({
+  firebase_uid: {
+    type: String,
+    ref: User,
+  },
   name: {
     type: String,
   },
@@ -13,15 +18,6 @@ const inputSchema = new Schema({
     unique: true,
   },
   opportunity: {
-    type: String,
-  },
-  firebase_name: {
-    type: String,
-  },
-  firebase_email: {
-    type: String,
-  },
-  firebase_uid: {
     type: String,
   },
 });

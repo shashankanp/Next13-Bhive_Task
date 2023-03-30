@@ -4,13 +4,14 @@ import Lottie from "lottie-react";
 
 export default function Success() {
   return (
-    <main className="h-screen flex items-center justify-center">
-      <div className="bg-white rounded-lg w-3/4 text-gray-700 p-16 text-center">
-        {/* <Lottie
+    <main className="h-screen flex items-center justify-center relative">
+      <div className=" rounded-lg w-3/4 text-gray-700 p-16 text-center ">
+        <Lottie
           animationData={Confetti}
           loop={false}
-          style={{ left: 0, right: 0, width: "100%", position: "absolute" }}
-        /> */}
+          className={"inset-0 -z-10 absolute "}
+          style={{ width: 1024 }}
+        />
         <h1 className="text-3xl pb-4 font-medium">
           Thank you for submitting your data!✨
         </h1>
