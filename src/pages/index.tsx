@@ -11,16 +11,15 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <main>
-        <h2 className="text-3xl mt-10">
+        <h2 className="text-3xl mt-10 mb-8">
           Join our amazing family of investors today!
         </h2>
-        <p className="text-2xl pt-4 font-medium">
-          Click{" "}
-          <Link href={"./form"} className="underline">
-            here
-          </Link>{" "}
-          to fill out the form{" "}
-        </p>
+        <Link
+          className="bg-teal-500 rounded-lg py-4 bg-gradient-to-r from-green-500 to-green-700 px-6 font-medium text-lg  text-white"
+          href="/auth/login"
+        >
+          Fill your first form!
+        </Link>
       </main>
     </>
   );

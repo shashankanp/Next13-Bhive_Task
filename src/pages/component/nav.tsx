@@ -12,20 +12,25 @@ function Nav() {
   const [user, loading] = useAuthState(auth);
 
   return (
-    <nav className="flex justify-between items-center py-0">
-      <Link href="/">
-        <Image alt="logo" src={Logo} className="w-10 h-12" />
-      </Link>
-      <ul>
-        {!user && (
+    <nav>
+      {!user && (
+        <div className="flex justify-between items-center py-0">
+          <Link href="/">
+            <Image alt="logo" src={Logo} className="w-10 h-12" />
+          </Link>
           <Link
             className="bg-teal-500 rounded-lg py-2 px-4 font-medium text-lg ml-8 text-white"
             href="/auth/login"
           >
             Join Now!
           </Link>
-        )}
-        {user && (
+        </div>
+      )}
+      {user && (
+        <div className="flex justify-between items-center py-0">
+          <Link href="/dashboard">
+            <Image alt="logo" src={Logo} className="w-10 h-12" />
+          </Link>
           <div>
             <Link href={"/dashboard"}>
               <img
@@ -37,8 +42,8 @@ function Nav() {
             </Link>
             <h2>{user.displayName}</h2>
           </div>
-        )}
-      </ul>
+        </div>
+      )}
     </nav>
   );
 }

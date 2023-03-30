@@ -10,7 +10,6 @@ export default function Success() {
           animationData={Confetti}
           loop={false}
           className={"inset-0 -z-10 absolute "}
-          style={{ width: 1024 }}
         />
         <h1 className="text-3xl pb-4 font-medium">
           Thank you for submitting your data!✨

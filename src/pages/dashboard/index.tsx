@@ -38,16 +38,15 @@ export default function Dashboard() {
         {!Object.keys(inputs).length && (
           <div>
             {" "}
-            <h2 className="text-3xl mt-10">
+            <h2 className="text-3xl my-10">
               You don't have any data available yet.
             </h2>
-            <p className="text-2xl pt-4 font-medium">
-              Click{" "}
-              <Link href={"./form"} className="underline">
-                here
-              </Link>{" "}
-              to fill out the form{" "}
-            </p>
+            <Link
+              className="bg-teal-500 rounded-lg py-4 bg-gradient-to-r from-green-500 to-green-700 px-6 font-medium text-lg  text-white"
+              href="/form"
+            >
+              Fill your first form!
+            </Link>
           </div>
         )}
 
@@ -63,35 +62,38 @@ export default function Dashboard() {
               to fill out another form{" "}
             </p>
             <h2 className="text-3xl mt-10">
-              Here are the details that you have provided:
+              Here is the {inputs.length} form details that you have provided:
             </h2>
-            {inputs.map((input: any) => (
-              <div
-                className="text-2xl shadow-xl mt-4 p-10 flex justify-between max-w-4xl"
-                key={input._id}
-              >
-                <div>
-                  <p className="my-2">
-                    <span className="font-medium">Name</span>: {input.name}
-                  </p>
-                  <p className="my-2">
-                    <span className="font-medium">Email</span>: {input.email}
-                  </p>
-                  <p className="my-2">
-                    <span className="font-medium">Phone</span>: {input.phone}
-                  </p>
-                  <p className="my-2">
-                    <span className="font-medium">Opportunity</span>:{" "}
-                    {input.opportunity}
-                  </p>
+            {inputs
+              .slice(0)
+              .reverse()
+              .map((input: any) => (
+                <div
+                  className="text-2xl shadow-xl rounded-xl mt-4 p-10 flex justify-between max-w-4xl"
+                  key={input._id}
+                >
+                  <div>
+                    <p className="my-2">
+                      <span className="font-medium">Name</span>: {input.name}
+                    </p>
+                    <p className="my-2">
+                      <span className="font-medium">Email</span>: {input.email}
+                    </p>
+                    <p className="my-2">
+                      <span className="font-medium">Phone</span>: {input.phone}
+                    </p>
+                    <p className="my-2">
+                      <span className="font-medium">Opportunity</span>:{" "}
+                      {input.opportunity}
+                    </p>
+                  </div>
+                  <div>
+                    <button className="bg-gray-500 rounded-lg py-3 px-6 font-medium text-lg text-white mt-14 mr-36 ">
+                      Edit
+                    </button>{" "}
+                  </div>
                 </div>
-                {/* <div>
-                  <button className="bg-gray-500 rounded-lg py-3 px-6 font-medium text-lg text-white mt-14 mr-36 ">
-                    Edit
-                  </button>{" "}
-                </div> */}
-              </div>
-            ))}
+              ))}
           </div>
         )}
         <button
