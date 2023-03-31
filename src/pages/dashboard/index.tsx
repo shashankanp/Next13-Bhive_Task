@@ -30,7 +30,7 @@ export default function Dashboard() {
   if (user)
     return (
       <div>
-        <h1 className="text-4xl mt-10">
+        <h1 className="text-4xl mt-10 mb-8">
           Welcome to your dashboard {user?.displayName}!
         </h1>
         {/* Details */}
@@ -54,13 +54,12 @@ export default function Dashboard() {
 
         {Object.keys(inputs).length > 0 && (
           <div>
-            <p className="text-2xl pt-2 font-medium">
-              Click{" "}
-              <Link href={"./form"} className="underline">
-                here
-              </Link>{" "}
-              to fill out another form{" "}
-            </p>
+            <Link
+              className="bg-teal-500 rounded-lg py-4 bg-gradient-to-r from-green-500 to-green-700 px-6 font-medium text-lg  text-white"
+              href="/form"
+            >
+              Fill another form!
+            </Link>
             <h2 className="text-3xl mt-10">
               Here is the {inputs.length} form details that you have provided:
             </h2>

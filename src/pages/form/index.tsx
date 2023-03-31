@@ -9,8 +9,10 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../../utils/firebase";
+import { useState } from "react";
 
 export default function Home() {
+  const [error, setError] = useState();
   const router = useRouter();
   const [user, loading] = useAuthState(auth);
   // Formik Logic
@@ -53,10 +55,13 @@ export default function Home() {
         })
         .then((response) => {
           console.log("Input Success:", response);
+          router.push("/success");
           return response.data;
         })
-        .catch((err) => console.log("Input Error:", err));
-      router.push("/success");
+        .catch((err) => {
+          setError(err.message);
+          console.log("Input Error:", err);
+        });
     },
   });
 
@@ -224,6 +229,11 @@ export default function Home() {
                 </div>
               </div>
 
+              {error && (
+                <p className="text-red-700 -mb-4 text-center ">
+                  Email or Phone already exists
+                </p>
+              )}
               <button
                 type="submit"
                 className="bg-teal-500 font-medium text-sm text-white py-3 mt-6 rounded-lg w-full"

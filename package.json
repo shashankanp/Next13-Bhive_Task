@@ -17,6 +17,7 @@
     "eslint": "8.36.0",
     "eslint-config-next": "13.2.4",
     "firebase": "^9.18.0",
+    "flowbite": "^1.6.4",
     "formik": "^2.2.9",
     "lottie-react": "^2.4.0",
     "mongoose": "^7.0.3",

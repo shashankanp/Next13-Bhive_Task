@@ -1,12 +1,11 @@
 import connectMongo from "../../../../utils/connectMongo";
 import Input from "../../../../models/inputData";
-import type { NextApiRequest, NextApiResponse } from "next";
-
-console.log("Connecting to Mongo");
-connectMongo();
-console.log("Connected to Mongo");
 
 export default async (req: any, res: any) => {
+  console.log("Connecting to Mongo");
+  await connectMongo();
+  console.log("Connected to Mongo");
+
   const { method } = req;
   switch (method) {
     case "GET":

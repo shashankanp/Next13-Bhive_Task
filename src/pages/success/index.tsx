@@ -1,6 +1,9 @@
 import Link from "next/link";
-import Confetti from "../confetti.json";
+import Confetti from "../animations/confetti.json";
 import Lottie from "lottie-react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../../utils/firebase";
+import { useRouter } from "next/navigation";
 
 export default function Success() {
   return (
@@ -9,7 +12,7 @@ export default function Success() {
         <Lottie
           animationData={Confetti}
           loop={false}
-          className={"inset-0 -z-10 absolute "}
+          className={"inset-0 -z-10 absolute"}
         />
         <h1 className="text-3xl pb-4 font-medium">
           Thank you for submitting your data!✨
