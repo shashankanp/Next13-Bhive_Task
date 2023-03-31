@@ -13,6 +13,7 @@ import { useState } from "react";
 
 export default function Home() {
   const [error, setError] = useState();
+  // const [imageUpload, setImageUpload] = useState(null);
   const router = useRouter();
   const [user, loading] = useAuthState(auth);
   // Formik Logic
@@ -23,6 +24,7 @@ export default function Home() {
       phone: "",
       opportunity: "Revenue Based Finance",
       terms: "",
+      // photo: "",
     },
 
     // Form Validation
@@ -44,7 +46,6 @@ export default function Home() {
     // Submit Form
     onSubmit: async (values) => {
       // console.log(values);
-      console.log(user?.uid);
       axios
         .post("/api/form/add", {
           firebase_uid: user?.uid,
@@ -52,6 +53,7 @@ export default function Home() {
           email: values.email,
           phone: values.phone,
           opportunity: values.opportunity,
+          // photo: values.photo,
         })
         .then((response) => {
           console.log("Input Success:", response);
@@ -179,25 +181,24 @@ export default function Home() {
 
               {/* Image submission */}
               {/* <div className="pb-4">
-              <label
-                className={`block text-sm pb-2 font-medium ${
-                  formik.touched.phone && formik.errors.phone
-                    ? "text-red-500"
-                    : ""
-                }`}
-                htmlFor="phone"
-              >
-                {formik.errors.phone ? formik.errors.phone : "Upload File"}
-              </label>
-              <input
-                type="file"
-                name="photo"
-                accept="image/*"
-                onChange={(e) =>
-                  formik.setFieldValue("photo", e.currentTarget.files[0])
-                }
-              />
-            </div> */}
+                <label
+                  className={`block text-sm pb-2 font-medium ${
+                    formik.touched.photo && formik.errors.photo
+                      ? "text-red-500"
+                      : ""
+                  }`}
+                  htmlFor="file"
+                >
+                  {formik.errors.photo ? formik.errors.photo : "Upload Photo"}
+                </label>
+                <input
+                  type="file"
+                  name="photo"
+                  accept="image/*"
+                  onChange={(e) =>{ setImageUpload(e.target.files?[0]);
+                  }}
+                />
+              </div> */}
 
               {/* Terms of Service */}
               <div className="pb-4">
@@ -230,7 +231,7 @@ export default function Home() {
               </div>
 
               {error && (
-                <p className="text-red-700 -mb-4 text-center ">
+                <p className="text-red-700 -mb-4 text-center bg-red-300 mx-5">
                   Email or Phone already exists
                 </p>
               )}

@@ -17,7 +17,6 @@
     "eslint": "8.36.0",
     "eslint-config-next": "13.2.4",
     "firebase": "^9.18.0",
-    "flowbite": "^1.6.4",
     "formik": "^2.2.9",
     "lottie-react": "^2.4.0",
     "mongoose": "^7.0.3",
@@ -27,6 +26,7 @@
     "react-firebase-hooks": "^5.1.1",
     "react-icons": "^4.8.0",
     "typescript": "5.0.2",
+    "uuid": "^9.0.0",
     "yup": "^1.0.2",
     "yup-phone-lite": "^2.0.1"
   },
