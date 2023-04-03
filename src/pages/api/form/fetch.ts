@@ -8,11 +8,13 @@ export default async (req: any, res: any) => {
 
   const { method } = req;
   switch (method) {
-    case "POST":
+    case "GET":
       try {
-        const input = await Input.create(req.body);
-        console.log("Succesfully Created Input: ", input);
-        res.status(200).json({ success: true, value: input });
+        const inputs = await Input.find();
+        res.status(200).json({
+          success: true,
+          value: inputs,
+        });
       } catch (error) {
         console.log("Failed: ", error);
         res.status(400).json({ success: false, error: error });

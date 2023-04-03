@@ -1,5 +1,5 @@
 import connectMongo from "../../../../utils/connectMongo";
-import Input from "../../../../models/inputData";
+import User from "../../../../models/firebaseUser";
 
 export default async (req: any, res: any) => {
   console.log("Connecting to Mongo");
@@ -8,11 +8,13 @@ export default async (req: any, res: any) => {
 
   const { method } = req;
   switch (method) {
-    case "POST":
+    case "GET":
       try {
-        const input = await Input.create(req.body);
-        console.log("Succesfully Created Input: ", input);
-        res.status(200).json({ success: true, value: input });
+        const users = await User.find();
+        res.status(200).json({
+          success: true,
+          value: users,
+        });
       } catch (error) {
         console.log("Failed: ", error);
         res.status(400).json({ success: false, error: error });

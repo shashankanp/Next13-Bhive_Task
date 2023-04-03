@@ -5,9 +5,17 @@ import Lottie from "lottie-react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../utils/firebase";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
+import Building from "../../public/white.jpg";
+import { useState, useEffect } from "react";
 
 export default function Home() {
+  const [isLoading, setIsloading] = useState(true);
   const [user, loading] = useAuthState(auth);
+  useEffect(() => {
+    if (user) setIsloading(false);
+  }, [user]);
+
   const router = useRouter();
   if (user) {
     router.push("/dashboard");
