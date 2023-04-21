@@ -14,7 +14,7 @@ import Form from "../component/form";
 
 export default function Home() {
   const [error, setError] = useState();
-  // const [imageUpload, setImageUpload] = useState(null);
+  const [imageUpload, setImageUpload] = useState(null);
   const router = useRouter();
   const [user, loading] = useAuthState(auth);
   // Formik Logic
@@ -25,7 +25,7 @@ export default function Home() {
       phone: "",
       opportunity: "Revenue Based Finance",
       terms: "",
-      // photo: "",
+      photo: "",
     },
 
     // Form Validation
@@ -42,12 +42,13 @@ export default function Home() {
         )
         .required("Email is required"),
       phone: Yup.string().phone("IN").required("A phone number is required"),
+      // photo: Yup.object().required("File must be uploaded"),
       terms: Yup.array().required("Terms of Sevice must be checked"),
     }),
 
     // Submit Form
     onSubmit: async (values) => {
-      // console.log(values);
+      console.log(values);
       axios
         .post("/api/form/add", {
           firebase_uid: user?.uid,
@@ -59,7 +60,8 @@ export default function Home() {
         })
         .then((response) => {
           console.log("Input Success:", response);
-          router.push("/success");
+
+          // router.push("/success");
           return response.data;
         })
         .catch((err) => {
@@ -124,6 +126,22 @@ export default function Home() {
               />
 
               {/* Image submission */}
+              <div className="mb-4">
+                <label
+                  htmlFor="photo"
+                  className="block text-gray-700 font-bold mb-2"
+                >
+                  Photo
+                </label>
+                <input
+                  id="photo"
+                  name="photo"
+                  type="file"
+                  onChange={(event) => setImageUpload(event.target.files[0])}
+                  className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                />
+              </div>
+
               {/* <div className="pb-4">
                 <label
                   className={`block text-sm pb-2 font-medium ${

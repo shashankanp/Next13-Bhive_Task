@@ -6,12 +6,16 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { AiFillEdit } from "react-icons/ai";
 
 export default function Dashboard() {
   const [user, loading] = useAuthState(auth);
   const route = useRouter();
 
   const [inputs, setInputs] = useState([]);
+
+  const name = user?.displayName;
+  const [displayName, setDisplayName] = useState(name);
 
   useEffect(() => {
     if (!loading)
@@ -21,7 +25,7 @@ export default function Dashboard() {
         })
         .then((res: any) => {
           setInputs(res.data.data);
-          console.log("user data: ", res.data.data);
+          // console.log("user data: ", res.data.data);
         });
   }, [user]);
   if (loading) return <h1 className="text-3xl">Loading...</h1>;
@@ -30,8 +34,9 @@ export default function Dashboard() {
   if (user)
     return (
       <div>
-        <h1 className="text-4xl mt-10 mb-8">
-          Welcome to your dashboard {user?.displayName}!
+        <h1 className="text-4xl mt-10 mb-8 flex">
+          Welcome to your dashboard {displayName}!{" "}
+          <AiFillEdit className="ml-3 cursor-pointer" />
         </h1>
         {/* Details */}
         {/* If data is empty */}
