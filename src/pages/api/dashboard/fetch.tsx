@@ -4,7 +4,7 @@ import Input from "../../../../models/inputData";
 console.log("CONNECTING TO MONGO");
 connectMongo();
 console.log("CONNECTED TO MONGO");
-export default async (req: any, res: any) => {
+const fetch = async (req: any, res: any) => {
   const { method, body } = req;
   switch (method) {
     case "POST":
@@ -28,3 +28,5 @@ export default async (req: any, res: any) => {
       break;
   }
 };
+
+export default fetch;

@@ -1,7 +1,7 @@
 import connectMongo from "../../../../utils/connectMongo";
 import User from "../../../../models/firebaseUser";
 
-export default async (req: any, res: any) => {
+const add = async (req: any, res: any) => {
   console.log("Connecting to Mongo");
   await connectMongo();
   console.log("Connected to Mongo");
@@ -24,3 +24,4 @@ export default async (req: any, res: any) => {
       break;
   }
 };
+export default add;

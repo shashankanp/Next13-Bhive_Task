@@ -44,7 +44,7 @@ export default function Dashboard() {
           <div>
             {" "}
             <h2 className="text-3xl my-10">
-              You don't have any data available yet.
+              You don&apos;t have any data available yet.
             </h2>
             <Link
               className="bg-teal-500 rounded-lg py-4 bg-gradient-to-r from-green-500 to-green-700 px-6 font-medium text-lg  text-white"

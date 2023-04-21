@@ -34,7 +34,7 @@ function Nav() {
           <div>
             <div className="dropdown inline-block relative">
               <Link href={"/dashboard"}>
-                <img
+                <Image
                   src={`${user.photoURL}`}
                   alt="avatar"
                   referrerPolicy="no-referrer"

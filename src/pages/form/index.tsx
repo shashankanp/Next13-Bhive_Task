@@ -137,7 +137,7 @@ export default function Home() {
                   id="photo"
                   name="photo"
                   type="file"
-                  onChange={(event) => setImageUpload(event.target.files[0])}
+                  // onChange={(event) => setImageUpload(event.target.files[0])}
                   className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 />
               </div>
