@@ -1,4 +1,4 @@
-import { Schema, model, models, SchemaTypes } from "mongoose";
+import { Schema, model, models } from "mongoose";
 import User from "./firebaseUser";
 
 const inputSchema = new Schema({

@@ -10,7 +10,7 @@ import axios from "axios";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../../utils/firebase";
 import { useState } from "react";
-import Form from "../component/form";
+// import Form from "../component/form";
 
 export default function Home() {
   const [error, setError] = useState();
@@ -25,7 +25,7 @@ export default function Home() {
       phone: "",
       opportunity: "Revenue Based Finance",
       terms: "",
-      photo: "",
+      // photo: "",
     },
 
     // Form Validation
@@ -61,7 +61,7 @@ export default function Home() {
         .then((response) => {
           console.log("Input Success:", response);
 
-          // router.push("/success");
+          router.push("/success");
           return response.data;
         })
         .catch((err) => {
@@ -89,44 +89,102 @@ export default function Home() {
 
             <div className="mt-6">
               {/* Name Input Field */}
-              <Form
-                name="name"
-                type="text"
-                text="Name"
-                formik={formik}
-                value=""
-              />
+              <div className="pb-4">
+                <label
+                  className={`block text-sm pb-2 font-medium ${
+                    formik.touched.name && formik.errors.name
+                      ? "text-red-500"
+                      : ""
+                  }`}
+                  htmlFor="name"
+                >
+                  {formik.errors.name ? formik.errors.name : "Name"}
+                </label>
+                <input
+                  type="text"
+                  name="name"
+                  value={formik.values.name}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  placeholder="Enter your name:"
+                  className="outline outline-2 outline-gray-500 p-2 rounded-md w-2/3 focus:border-teal-500 focus:ring-teal-500"
+                />
+              </div>
 
               {/* Email Input Field */}
-              <Form
-                name="email"
-                type="email"
-                text="Email Id"
-                formik={formik}
-                value=""
-              />
+              <div className="pb-4">
+                <label
+                  className={`block text-sm pb-2 font-medium ${
+                    formik.touched.email && formik.errors.email
+                      ? "text-red-500"
+                      : ""
+                  }`}
+                  htmlFor="email"
+                >
+                  {formik.errors.email ? formik.errors.email : "Email Id"}
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  value={formik.values.email}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  placeholder="Enter your mail Id:"
+                  className="outline outline-2 outline-gray-500 p-2 rounded-md w-2/3 focus:border-teal-500 focus:ring-teal-500"
+                />
+              </div>
 
               {/* Phone Number Input Field */}
-              <Form
-                name="phone"
-                type="tel"
-                text="Phone Number"
-                formik={formik}
-                value=""
-              />
+              <div className="pb-4">
+                <label
+                  className={`block text-sm pb-2 font-medium ${
+                    formik.touched.phone && formik.errors.phone
+                      ? "text-red-500"
+                      : ""
+                  }`}
+                  htmlFor="phone"
+                >
+                  {formik.errors.phone ? formik.errors.phone : "Phone Number"}
+                </label>
+                <input
+                  type="tel"
+                  name="phone"
+                  value={formik.values.phone}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  placeholder="Enter your Phone No:"
+                  className="outline outline-2 outline-gray-500 p-2 rounded-md w-2/3 focus:border-teal-500 focus:ring-teal-500"
+                />
+              </div>
 
               {/* Opportunity Input Field */}
-
-              <Form
-                name="opportunity"
-                type="option"
-                text="Opportunities"
-                formik={formik}
-                value=""
-              />
+              <div className="pb-4">
+                <label
+                  className="block text-sm pb-2 font-medium"
+                  htmlFor="opportunity"
+                >
+                  Opportunities
+                </label>
+                <select
+                  name="opportunity"
+                  // defaultValue="rbf"
+                  value={formik.values.opportunity}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  className="outline outline-2 outline-gray-500 p-2 rounded-md w-2/3 focus:border-teal-500 focus:ring-teal-500"
+                >
+                  <option value="Fractional Real Estate">
+                    Fractional Real Estate
+                  </option>
+                  <option value="Revenue Based Finance">
+                    Revenue Based Finance
+                  </option>
+                  <option value="Asset Leasing">Asset Leasing</option>
+                </select>
+              </div>
 
               {/* Image submission */}
-              <div className="mb-4">
+              {/* <div className="mb-4">
                 <label
                   htmlFor="photo"
                   className="block text-gray-700 font-bold mb-2"
@@ -140,7 +198,7 @@ export default function Home() {
                   // onChange={(event) => setImageUpload(event.target.files[0])}
                   className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 />
-              </div>
+              </div> */}
 
               {/* <div className="pb-4">
                 <label
@@ -163,13 +221,34 @@ export default function Home() {
               </div> */}
 
               {/* Terms of Service */}
-              <Form
-                name="terms"
-                type="checkbox"
-                text="Terms of Service"
-                formik={formik}
-                value="checked"
-              />
+              <div className="pb-4">
+                <label
+                  className={`block text-sm pb-2 font-medium ${
+                    formik.touched.terms && formik.errors.terms
+                      ? "text-red-500"
+                      : ""
+                  }`}
+                  htmlFor="terms"
+                >
+                  {formik.errors.terms
+                    ? formik.errors.terms
+                    : "Terms of Service"}
+                </label>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    name="terms"
+                    value="checked"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    className="h-5 w-5 text-teal-500 border-2  focus:border-teal-500 focus:ring-teal-500"
+                  />
+                  <p className="text-sm font-medium text-gray-500">
+                    I agree to the Terms and Service that this data will be used
+                    for further communication.
+                  </p>
+                </div>
+              </div>
 
               {error && (
                 <p className="text-red-700 -mb-4 text-center bg-red-300 mx-5">
