@@ -11,7 +11,7 @@ const fetch = async (req: any, res: any) => {
       try {
         console.log("req data: ", req.body);
 
-        const inputs = await Input.find({ firebase_uid: body.data?.uid });
+        const inputs = await Input.find({ firebase_uid: body.data?.id });
         return res.json({
           data: inputs,
         });
@@ -21,7 +21,6 @@ const fetch = async (req: any, res: any) => {
           notFound: true,
         };
       }
-      break;
 
     default:
       res.status(400).json({ success: false });
