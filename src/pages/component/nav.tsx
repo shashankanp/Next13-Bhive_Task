@@ -54,7 +54,7 @@ function Nav() {
                 <li>
                   <button
                     onClick={() => auth.signOut()}
-                    className="rounded-b bg-gray-200 hover:bg-gray-400  py-2 px-4 block text-black font-medium whitespace-no-wrap"
+                    className="rounded-b bg-gray-200 hover:bg-gray-400  py-2 px-2 block text-black font-medium whitespace-no-wrap"
                   >
                     Sign Out
                   </button>

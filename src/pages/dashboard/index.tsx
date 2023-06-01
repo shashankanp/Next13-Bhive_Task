@@ -7,9 +7,12 @@ import Link from "next/link";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { AiFillEdit } from "react-icons/ai";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../../../utils/firebase";
 
 export default function Dashboard() {
   const [user, loading] = useAuthState(auth);
+  const [loadedIn, setLoadedIn] = useState(true);
   const route = useRouter();
 
   const [inputs, setInputs] = useState([]);
@@ -25,13 +28,15 @@ export default function Dashboard() {
         })
         .then((res: any) => {
           setInputs(res.data.data);
-          // console.log("user data: ", res.data.data);
+          setLoadedIn(false);
+
+          console.log("user data: ", res.data.data);
         });
   }, [user]);
-  if (loading) return <h1 className="text-3xl">Loading...</h1>;
+  if (loadedIn) return <h1 className="text-3xl">Loading...</h1>;
   if (!user) route.push("/auth/login");
 
-  if (user)
+  if (!loadedIn && user)
     return (
       <div>
         <h1 className="text-4xl mt-10 mb-8 flex">
@@ -57,7 +62,7 @@ export default function Dashboard() {
 
         {/* If data exists */}
 
-        {Object.keys(inputs).length > 0 && (
+        {!loadedIn && Object.keys(inputs).length > 0 && (
           <div>
             <Link
               className="bg-teal-500 rounded-lg py-4 bg-gradient-to-r from-green-500 to-green-700 px-6 font-medium text-lg  text-white"

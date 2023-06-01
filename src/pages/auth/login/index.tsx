@@ -39,14 +39,8 @@ export default function Login() {
   });
   const MicrosoftLogin = async () => {
     try {
-      const result = await signInWithPopup(auth, microProvider).then(
-        (result) => {
-          const credential = OAuthProvider.credentialFromResult(result);
-          const accessToken = credential?.accessToken;
-          const idToken = credential?.idToken;
-        }
-      );
-      // console.log(result.user);
+      const result = await signInWithPopup(auth, microProvider).then();
+      console.log("User:", result.user);
       route.push("/dashboard");
     } catch (error: any) {
       console.log(error);
@@ -63,10 +57,10 @@ export default function Login() {
         })
         .then((response) => {
           console.log("Firebase User Success:", response);
-          route.push("/dashboard");
           return response.data;
         })
         .catch((err) => console.log("Firebase User Error:", err));
+        route.push("/dashboard");
     } else {
       // console.log("Login Please");
     }
