@@ -11,20 +11,25 @@ const post = async (req: any, res: any) => {
       const id = uuidv4(); // Generate unique id for the filename
       const fileRef = bucket.file(`images/${id}.jpeg`);
 
-      // Upload the image file to Firebase Storage
-      await fileRef.save(file, {
-        metadata: {
-          contentType: "image/jpeg",
-        },
-      });
+      try {
+        await fileRef.save(file, {
+          metadata: {
+            contentType: "image/jpeg",
+          },
+        });
 
-      // Get the download URL of the image file
-      const downloadUrl = await fileRef.getSignedUrl({
-        action: "read",
-        expires: "03-17-3000",
-      });
+        // Get the download URL of the image file
+        const downloadUrl = await fileRef.getSignedUrl({
+          action: "read",
+          expires: "03-17-3000",
+        });
 
-      res.status(200).json({ url: downloadUrl[0] });
+        res.status(200).json({ url: downloadUrl[0] });
+      } catch (error) {
+        console.log("Failed: ", error);
+        res.status(400).json({ success: false, error: error });
+      }
+    // Upload the image file to Firebase Storage
   }
 };
 export default post;
