@@ -3,14 +3,10 @@ import { v4 as uuidv4 } from "uuid";
 import * as admin from "firebase-admin";
 
 const post = async (req: any, res: any) => {
-  const storage = getStorage();
-  const storageRef = ref(storage, "userProfile");
-
   const { method } = req;
   switch (method) {
     case "POST":
       const file = req.body;
-
       const bucket = admin.storage().bucket();
       const id = uuidv4(); // Generate unique id for the filename
       const fileRef = bucket.file(`images/${id}.jpeg`);
