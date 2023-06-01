@@ -27,14 +27,14 @@ if (app.name && typeof window !== "undefined") {
   analytics = getAnalytics(app);
 }
 
-var admin = require("firebase-admin");
+// var admin = require("firebase-admin");
 
-var serviceAccount = require("path/to/serviceAccountKey.json");
+// var serviceAccount = require("path/to/serviceAccountKey.json");
 
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://task-c7f94-default-rtdb.firebaseio.com",
-});
+// admin.initializeApp({
+//   credential: admin.credential.cert(serviceAccount),
+//   databaseURL: "https://task-c7f94-default-rtdb.firebaseio.com",
+// });
 
 export const storage = getStorage(app);
 

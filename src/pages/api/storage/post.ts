@@ -1,34 +1,28 @@
-import { getStorage, ref } from "firebase/storage";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+import { initializeApp } from "firebase/app";
 import { v4 as uuidv4 } from "uuid";
-import * as admin from "firebase-admin";
+import { storage } from "../../../../utils/firebase";
 
 const post = async (req: any, res: any) => {
   const { method } = req;
+
   switch (method) {
     case "POST":
       try {
-        const file = req.body;
-        const bucket = admin.storage().bucket();
+        const fileBuffer = Buffer.from(req.body, "binary"); // Convert the binary data to a Buffer
         const id = uuidv4(); // Generate unique id for the filename
-        const fileRef = bucket.file(`images/${id}.jpeg`);
-        await fileRef.save(file, {
-          metadata: {
-            contentType: "image/jpeg",
-          },
-        });
+        const storageRef = ref(storage, `images/${id}.jpeg`);
+        await uploadBytes(storageRef, fileBuffer);
 
-        // Get the download URL of the image file
-        const downloadUrl = await fileRef.getSignedUrl({
-          action: "read",
-          expires: "03-17-3000",
-        });
+        // Note: getDownloadURL only gets a public URL for the file, which is different from the signed URL
+        // and does not require any authentication to access
+        const downloadUrl = await getDownloadURL(storageRef);
 
-        res.status(200).json({ url: downloadUrl[0] });
+        res.status(200).json({ url: downloadUrl });
       } catch (error) {
         console.log("Failed: ", error);
         res.status(400).json({ success: false, error: error });
       }
-    // Upload the image file to Firebase Storage
   }
 };
 export default post;
