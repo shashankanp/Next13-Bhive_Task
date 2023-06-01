@@ -9,7 +9,7 @@ import { initializeApp } from "firebase/app";
 import { v4 as uuidv4 } from "uuid";
 import { storage } from "../../../../utils/firebase";
 
-const post = async (req: any, res: any) => {
+const post = async (req, res) => {
   const { method } = req;
 
   switch (method) {
