@@ -23,8 +23,8 @@ const post = async (req, res) => {
     if (err) {
       return res.status(500).json({ error: err.message });
     }
-    const { method } = req;
-    const { name } = req.body;
+    let { method, name } = req;
+    name = req.body;
     console.log(req);
 
     switch (method) {
@@ -70,7 +70,7 @@ const post = async (req, res) => {
         break;
 
       default:
-        // res.setHeader("Allow", ["POST"]);
+        res.setHeader("Allow", ["POST", "GET"]);
         res.status(405).end(`Method ${method} Not Allowed`);
     }
   });
