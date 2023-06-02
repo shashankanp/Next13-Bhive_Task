@@ -13,6 +13,9 @@ const firebaseSchema = new Schema({
     type: String,
     unique: true,
   },
+  display_pic: {
+    type: String,
+  },
 });
 
 const User = models.User || model("User", firebaseSchema);
