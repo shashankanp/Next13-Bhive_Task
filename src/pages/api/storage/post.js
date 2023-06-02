@@ -19,16 +19,19 @@ const post = async (req, res) => {
   await connectMongo();
   console.log("Connected to Mongo");
 
-  upload.single("file")(req, res, async (err) => {
-    if (err) {
-      return res.status(500).json({ error: err.message });
-    }
-    let { method, name } = req;
-    name = req.body;
-    console.log(req);
+  let { method } = req;
+  let { name } = req.body;
 
-    switch (method) {
-      case "POST":
+  switch (method) {
+    case "POST":
+      upload.single("file")(req, res, async (err) => {
+        if (err) {
+          return res.status(500).json({ error: err.message });
+        }
+        let { method } = req;
+        let { name } = req.body;
+
+        console.log(req);
         try {
           const file = req.file;
           const ext = path.extname(file.originalname);
@@ -58,21 +61,21 @@ const post = async (req, res) => {
           console.log("Failed: ", error);
           res.status(400).json({ success: false, error: error });
         }
-        break;
+      });
+      break;
 
-      case "GET":
-        try {
-          const users = await User.findOne({ firebase_name: name });
-          return res.json({ pic_url: users.display_pic });
-        } catch (error) {
-          res.status(400).json({ success: false, error: error });
-        }
-        break;
+    case "GET":
+      try {
+        const users = await User.findOne({ firebase_name: name });
+        return res.json({ pic_url: users.display_pic });
+      } catch (error) {
+        res.status(400).json({ success: false, error: error });
+      }
+      break;
 
-      default:
-        res.setHeader("Allow", ["POST", "GET"]);
-        res.status(405).end(`Method ${method} Not Allowed`);
-    }
-  });
+    default:
+      res.setHeader("Allow", ["POST", "GET"]);
+      res.status(405).end(`Method ${method} Not Allowed`);
+  }
 };
 export default post;
