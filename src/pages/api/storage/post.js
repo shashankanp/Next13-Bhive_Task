@@ -20,7 +20,6 @@ const post = async (req, res) => {
   console.log("Connected to Mongo");
 
   let { method } = req;
-  let { name } = req.body;
 
   switch (method) {
     case "POST":
@@ -28,14 +27,11 @@ const post = async (req, res) => {
         if (err) {
           return res.status(500).json({ error: err.message });
         }
-        let { method } = req;
-        let { name } = req.body;
 
-        console.log(req);
         try {
+          const { name } = req.body;
           const file = req.file;
           const ext = path.extname(file.originalname);
-          // console.log("File: ", file);
 
           const id = uuidv4();
           const storageRef = ref(storage, `images/${id}${ext}`);
@@ -43,6 +39,7 @@ const post = async (req, res) => {
           await uploadBytes(storageRef, file.buffer);
 
           const downloadURL = await getDownloadURL(storageRef);
+
           try {
             await User.findOneAndUpdate(
               { firebase_name: name },
@@ -66,6 +63,7 @@ const post = async (req, res) => {
 
     case "GET":
       try {
+        const { name } = req.query;
         const users = await User.findOne({ firebase_name: name });
         return res.json({ pic_url: users.display_pic });
       } catch (error) {
