@@ -15,27 +15,23 @@ const post = async (req, res) => {
   switch (method) {
     case "POST":
       try {
-        const { file } = req.body;
-        console.log("File: ", file);
-        console.log("Req Body:  ", req.body);
+        const { file: base64String, contentType } = req.body;
 
-        // if (!base64String || !contentType) {
-        //   throw new Error("Invalid request: file and contentType are required");
-        // }
+        if (!base64String || !contentType) {
+          throw new Error("Invalid request: file and contentType are required");
+        }
 
-        // const extension = contentType.split("/")[1];
-        // const fileBuffer = Buffer.from(base64String, "base64");
+        const extension = contentType.split("/")[1];
+        const fileBuffer = Buffer.from(base64String, "base64");
         const id = uuidv4();
-        const storageRef = ref(storage, `images/${id}`);
+        const storageRef = ref(storage, `images/${id}.${extension}`);
 
-        await uploadBytes(storageRef, file);
+        await uploadBytes(storageRef, fileBuffer);
 
         const downloadURL = await storageRef.getDownloadURL();
 
         res.status(200).json({ url: downloadURL });
       } catch (error) {
-        console.log("File: ", file);
-        console.log("Req Body:  ", req.body);
         console.log("Failed: ", error);
         res
           .status(400)
