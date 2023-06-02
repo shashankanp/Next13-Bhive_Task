@@ -1,17 +1,11 @@
 import multer from "multer";
 import path from "path";
-import {
-  getStorage,
-  ref,
-  uploadBytesResumable,
-  getDownloadURL,
-  uploadBytes,
-} from "firebase/storage";
-import { initializeApp } from "firebase/app";
+import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
 import { storage } from "../../../../utils/firebase";
+import User from "../../../../models/firebaseUser";
+import connectMongo from "../../../../utils/connectMongo";
 
-// Initialize multer
 const upload = multer();
 
 export const config = {
@@ -21,27 +15,42 @@ export const config = {
 };
 
 const post = async (req, res) => {
+  console.log("Connecting to Mongo");
+  await connectMongo();
+  console.log("Connected to Mongo");
+
   upload.single("file")(req, res, async (err) => {
     if (err) {
       return res.status(500).json({ error: err.message });
     }
     const { method } = req;
+    const { name } = req.body;
+    console.log(req);
 
     switch (method) {
       case "POST":
         try {
-          // Get the file from multer's req.file instead of req.body
           const file = req.file;
           const ext = path.extname(file.originalname);
-          console.log("File: ", file);
+          // console.log("File: ", file);
 
           const id = uuidv4();
           const storageRef = ref(storage, `images/${id}${ext}`);
 
-          // Make sure to pass the buffer version of the file
           await uploadBytes(storageRef, file.buffer);
 
           const downloadURL = await getDownloadURL(storageRef);
+          try {
+            await User.findOneAndUpdate(
+              { firebase_name: name },
+              {
+                display_pic: downloadURL,
+              }
+            );
+          } catch (error) {
+            console.log("Failed: ", error);
+            res.status(400).json({ success: false, error: error });
+          }
 
           res.status(200).json({ url: downloadURL });
         } catch (error) {
@@ -50,8 +59,18 @@ const post = async (req, res) => {
           res.status(400).json({ success: false, error: error });
         }
         break;
+
+      case "GET":
+        try {
+          const users = await User.findOne({ firebase_name: name });
+          return res.json({ pic_url: users.display_pic });
+        } catch (error) {
+          res.status(400).json({ success: false, error: error });
+        }
+        break;
+
       default:
-        res.setHeader("Allow", ["POST"]);
+        // res.setHeader("Allow", ["POST"]);
         res.status(405).end(`Method ${method} Not Allowed`);
     }
   });
