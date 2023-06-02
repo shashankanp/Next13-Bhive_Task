@@ -34,6 +34,8 @@ const post = async (req, res) => {
 
         res.status(200).json({ url: downloadURL });
       } catch (error) {
+        console.log("File: ", file);
+        console.log("Req Body:  ", req.body);
         console.log("Failed: ", error);
         res.status(code).json({ success: false, error: error });
       }
