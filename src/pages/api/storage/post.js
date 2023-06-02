@@ -20,6 +20,7 @@ const post = async (req, res) => {
   console.log("Connected to Mongo");
 
   let { method } = req;
+  console.log(req);
 
   switch (method) {
     case "POST":
@@ -64,10 +65,15 @@ const post = async (req, res) => {
     case "GET":
       try {
         const { name } = req.query;
+        console.log("Name:", name);
         const users = await User.findOne({ firebase_name: name });
         return res.json({ pic_url: users.display_pic });
       } catch (error) {
-        res.status(400).json({ success: false, error: error });
+        let errorMessage = error.message; // Get the error message
+        if (error.response && error.response.body) {
+          errorMessage = error.response.body; // Use the error response body if available
+        }
+        res.status(400).json({ success: false, error: errorMessage });
       }
       break;
 
