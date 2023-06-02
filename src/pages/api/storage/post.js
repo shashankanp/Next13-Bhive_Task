@@ -37,7 +37,14 @@ const post = async (req, res) => {
         console.log("File: ", file);
         console.log("Req Body:  ", req.body);
         console.log("Failed: ", error);
-        res.status(code).json({ success: false, error: error });
+        res
+          .status(400)
+          .json({
+            success: false,
+            error: error,
+            reqBody: req.body,
+            file: file,
+          });
       }
       break;
     default:
