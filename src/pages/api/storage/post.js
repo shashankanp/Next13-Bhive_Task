@@ -16,6 +16,8 @@ const post = async (req, res) => {
     case "POST":
       try {
         const { file } = req.body;
+        console.log("File: ", file);
+        console.log("Req Body:  ", req.body);
 
         // if (!base64String || !contentType) {
         //   throw new Error("Invalid request: file and contentType are required");
@@ -33,7 +35,7 @@ const post = async (req, res) => {
         res.status(200).json({ url: downloadURL });
       } catch (error) {
         console.log("Failed: ", error);
-        res.status(400).json({ success: false, error: error });
+        res.status(code).json({ success: false, error: error });
       }
       break;
     default:
