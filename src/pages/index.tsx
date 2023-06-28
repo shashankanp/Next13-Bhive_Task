@@ -7,6 +7,7 @@ import { auth } from "../../utils/firebase";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Building from "../../public/white.jpg";
+
 import { useState, useEffect } from "react";
 
 export default function Home() {
